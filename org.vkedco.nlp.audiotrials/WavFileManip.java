@@ -584,23 +584,7 @@ public class WavFileManip {
             double currAmp = 0.0;
             DecimalFormat df = new DecimalFormat("0.000");
 
-            // - buffer[channel_num] is a double array of length frame_sample_size.
-            // Here is an algorithm. Have an ArrayList<Double> that keeps adding Doubles
-            // from buffer[channel_num] so long as buffer is non-silence.
-            // Once you have ArrayList<Double>, use DTW on ArrayList<Double> to match it
-            // with a pre-stored word patterns, each of which is ArrayList<Double>.
-            // Here is what we need to implement:
-            // - dp_dtw_cost_matrix(int n, int m, ArrayList<Double> xseq, ArrayList<Double> yseq, 
-            //                      ISimilarity isim, max_cost)
-            // - get_dp_owp(int n, int m, double[][] cost_matrix)
-            // - get_owp(int n, int m, double[][] cost_matrix)
-            // - dp_dtw_cost_matrix_subseq(ArrayList<Double> xseq, ArrayList<Double> yseq, ISimilarity isim,
-            //   							int max_cost)
-            // - find_b_star(int n, int m, double[][] cost_matrix, double max_cost)
-            // - find_a_star(optimal warping path)
-            // - dp_dtw_cost_matrix_subseq(ArrayList<Double> xseq, ArrayList<Double> yseq, ISimilarity isim, 
-            //							double max_cost)
-            // - dp_dtw_subseq(ArrayList<Double> xseq, ArrayList<Double> yseq, double max_cost=1000)
+           
 
             do {
                 framesRead = inWavFile.readFrames(buffer, frame_sample_size);
