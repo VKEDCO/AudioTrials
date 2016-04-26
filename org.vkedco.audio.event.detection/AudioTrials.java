@@ -34,6 +34,7 @@ import org.jscience.mathematics.number.Complex;
 import org.vkedco.audio.event.detection.fourier.Piano88A440OctaveFourierDetector;
 import org.vkedco.tolstov.chapter_01.FourierSeriesExpansion;
 import org.vkedco.tolstov.utils.Harmonic;
+import org.vkedco.audio.utils.*;
 
 public class AudioTrials {
     
@@ -1084,47 +1085,6 @@ public class AudioTrials {
         
     //detectAllNotesByHarmonicCoeffMagnitude(AUDIO_DIR_02, "ODE_TO_JOY_ORCHESTRA.wav", 0, 44100/2, -Math.PI, Math.PI, 0.01, 0.01);
     //detectAllNotesByHarmonicAmplitude(AUDIO_DIR_02, "ODE_TO_JOY_ORCHESTRA.wav", 0, 44100/2, -Math.PI, Math.PI, 0.01, 0.01);
-    
-    
-    // I need to do the fourier analysis in Octave and then
-    // try boosting the amplitude by some constant factor
-    public static void main(String[] args) {        
-        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_01_03_05jul, 44100);
-        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_01_03_05jul, 44100/2);  
-        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_01_03_05jul, 44100/4);
-        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_01_03_05jul, 44100/8);
-        
-        AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_01_03_05jul, 44100/16);
-         
-         
-        System.out.println("************");
-        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_04_06_05jul, 44100);
-        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_04_06_05jul, 44100/2);  
-        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_04_06_05jul, 44100/4);
-        
-        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_04_06_05jul, 44100/8);
-        
-        AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_04_06_05jul, 44100/16);
-        
-        System.out.println("************");
-        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_07_09_05jul, 44100);
-        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_07_09_05jul, 44100/2);  
-        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_07_09_05jul, 44100/4);
-        
-        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_07_09_05jul, 44100/8);
-        AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_07_09_05jul, 44100/16);
-        
-        System.out.println("************");
-        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_10_12_05jul, 44100);
-        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_10_12_05jul, 44100/2);  
-        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_10_12_05jul, 44100/4);
-        
-        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_10_12_05jul, 44100/8);
-        AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_10_12_05jul, 44100/16);
-         
-       
-    }
-    
     static void listFilesForFolder(final File folder) {
         for (final File fileEntry : folder.listFiles()) {
             if (fileEntry.isDirectory()) {
@@ -1156,4 +1116,52 @@ public class AudioTrials {
             }
         }
     }
+    
+    static void processBuzzWavFile(String inpath, String outpath, int freq, int channel_num, double scaler) {
+        WavFileManip.wavFileToPrimitiveDoubles(inpath, outpath, freq, channel_num, scaler);
+        double[] ds = Utils.readInPrimDoublesFromLineFile(outpath);
+        System.out.println(ds.length);
+    }
+    
+    // Do the fourier analysis in Octave and then
+    // try boosting the amplitude by some constant factor
+    public static void main(String[] args) {        
+        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_01_03_05jul, 44100);
+        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_01_03_05jul, 44100/2);  
+        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_01_03_05jul, 44100/4);
+        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_01_03_05jul, 44100/8);
+        
+        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_01_03_05jul, 44100/16);
+         
+         
+        //System.out.println("************");
+        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_04_06_05jul, 44100);
+        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_04_06_05jul, 44100/2);  
+        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_04_06_05jul, 44100/4);
+        
+        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_04_06_05jul, 44100/8);
+        
+        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_04_06_05jul, 44100/16);
+        
+        //System.out.println("************");
+        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_07_09_05jul, 44100);
+        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_07_09_05jul, 44100/2);  
+        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_07_09_05jul, 44100/4);
+        
+        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_07_09_05jul, 44100/8);
+        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_07_09_05jul, 44100/16);
+        
+        //System.out.println("************");
+        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_10_12_05jul, 44100);
+        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_10_12_05jul, 44100/2);  
+        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_10_12_05jul, 44100/4);
+        
+        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_10_12_05jul, 44100/8);
+        //AudioTrials.detectAllPiano88A440OctavesAtFreq(BUZZ_DIR_F02_USOF_25Jul2015_10_12_05jul, 44100/16);  
+        
+        processBuzzWavFile("C://Users//vladimir//research//audio_files//wav//beepi//garland_07jul15_04aug15//2015-07-20_18-51-10.wav",
+                "C://Users//vladimir//research//audio_files//wav//beepi//garland_07jul15_04aug15//2015-07-20_18-51-10_44100_1000.txt", 44100, 0, 1000.0);
+    }
+    
+    
 }
